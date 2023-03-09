@@ -4,7 +4,7 @@ from .forms import CommentForm
 
 
 def blog_index(request):
-    posts = Post.objects.all().order_by('-create_on')
+    posts = Post.objects.all().order_by('-created_on')
     context = {
         "posts": posts,
     }
@@ -19,7 +19,7 @@ def blog_category(request, category):
         "category": category,
         "posts": posts
     }
-    return render(request, blog_category.html, context)
+    return render(request, "blog_category.html", context)
 
 
 def blog_detail(request, pk):
@@ -38,8 +38,9 @@ def blog_detail(request, pk):
 
     comments = Comment.objects.filter(post=post)
     context = {
-        "posts": post,
+        "post": post,
         "comments": comments,
+        "form": form,
     }
     return render(request, "blog_detail.html", context)
 
